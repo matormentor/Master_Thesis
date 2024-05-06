@@ -1,0 +1,35 @@
+%*******************************************************
+% Abstract
+%*******************************************************
+%\renewcommand{\abstractname}{Abstract}
+\pdfbookmark[1]{Abstract}{Abstract}
+% \addcontentsline{toc}{chapter}{\tocEntry{Abstract}}
+\begingroup
+\let\clearpage\relax
+\let\cleardoublepage\relax
+\let\cleardoublepage\relax
+
+\chapter*{Abstract}
+Water–fat (WF) MRI is a set of techniques used in the assessment of metabolic dysfunction-related diseases. These techniques leverage the frequency shift between water and fat MR signals to separate them into two images, needing the acquisition of images at multiple echo times which extends the already prolonged MRI scan duration.\\
+
+To shorten this acquisition time water-fat imaging has been combined with ultra-short echo time (UTE) techniques. The combination of these two methods are called UTE-Dixon imaging. These techniques have been used to suppress the fat signal in the MRI acquisitions and to determine tissue electron density properties. However, the need of two complex images to separate water and fat prolongs the scan time. A solution is to separate water and fat with the use of a single complex image instead of two, shortening scan time. This technique in combination with UTE acquisitions is called single-point UTE (sUTE) Dixon imaging. The use of a single image to separate water and fat introduces complexity to the problem, since some background phase contributions, coming from $B_0$ and $B_1$ field inhomogeneities cannot be implicitly deduced from only one echo. Hence, the problem becomes ill posed.\\
+
+New techniques have arisen to tackle this problematic such as Kronthaler [citeKronthaler] with the use of a second order iterative optimization method (Gauss-Newton Method) with a smoothness constraint. Because the problem is ill posed initialization is necessary to ensure a proper convergence path and a better result of the water-fat separation.\\
+
+This study aims to explore different methods to improve sUTE-Dixon imaging by addressing two different points:
+\begin{enumerate}
+\item Characteristics of background phase contributions and different approaches to modeling them. 
+\item How initialization techniques changes the behavior of the iterative optimization method results?.
+\end{enumerate}
+
+We developed a sUTE-Dixon reconstruction framework based on the latest literature and integrated initialization techniques to further improve the method. This framework is used to compare reconstructions of different phantoms and anatomies with different hyper-parameters and initialization approaches.\\
+
+Our findings reveal that initialization, not only prevents artifacts in reconstructed images but also significantly enhances the achievable water-fat separation quality. Additionally, we highlight two principal limitations of the current framework: 
+\begin{enumerate}
+\item Its inability to accurately reconstruct water and fat at the anatomy/object edges.
+\item Its sensitivity to mean phase shifts from the scan.
+\end{enumerate}
+
+\endgroup
+
+\vfill
