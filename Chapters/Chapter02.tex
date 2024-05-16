@@ -1,3 +1,208 @@
 %*****************************************
-\chapter{Examples}\label{ch:examples}
+\chapter{MRI Theory}\label{ch:theory}
 %*****************************************
+
+\section{Nuclear Magnetic Resonance (NMR)}
+Nuclear Magnetic Resonance (NMR) is the physical phenomenon underlying magnetic resonance imaging (MRI). NMR occurs when nuclei with non-zero spin absorb and emit electromagnetic radiation whey the nuclei are placed in an external magnetic field. Most isotopes with an odd number of protons and/or neutrons such as hydrogen (\isotope[1]{H}), carbon (\isotope[13]{C}), and phosphorus (\isotope[31]{P}) have a spin \cite{12Sandy}.\\
+
+\isotope[1]H is the most abundant isotope inside the body and is the commonly used nuclei in magnetic resonance imaging. Its properties such as a high gyro-magnetic ratio, and a non-zero spin, makes it suitable for conducting measurements that provides information about the structure of the scanned tissue. For interest readers we refer to the standard literature \cite{4and5Julio}\\
+
+\subsection{Nuclear Spin and Magnetic Moment}
+Nuclei with an odd number of protons and/or neutrons possess a property called nuclear spin $\mathbf{\vec{I}}$ of a nucleus with mass \(A\). Since nuclei are not single entities, \(\mathbf{\vec{I}}\) is composed of the spins $\vec{s_i}$ and the orbital angular momenta $\vec{l_i}$ of the protons and neutrons in the nucleus which have a spin $s=\frac{1}{2}$. Its relation is described by:
+\begin{equation}\label{eq:nuclearSpin}
+\mathbf{\vec{I}} = \sum_{i=1}^{A}\left(\vec{s_i} + \vec{l_i}\right).
+\end{equation}
+Different nuclear spin configurations can be achieved depending on the number of protons and neutrons in the nucleus, with the quantum relations given by:
+\begin{align}
+\hat{\vec{\mathbf{I}}}\ket{I,m} &= \hbar^2I(I+1)\ket{I,m}\\
+\hat{I_z}\ket{I,m} &= \hbar m \ket{I,m}
+\end{align} 
+with $\norm{\vec{\mathbf{I}}} > 0$, using the spin operator $\hat{\vec{\mathbf{I}}}$, m as the magnetic quantum number, and constant $\hbar = \frac{h}{2\pi}$ is the reduced Plank's constant $\SI{6.6e-34}{\joule\second}$ divided by $2\pi$.\\
+
+The nuclear spin can be related to a microscopic magnetic field which is formed by the charged nuclei rotating around its axis. The nuclear magnetic moment $\vec{\mu}$ is directly to the total spin angular momentum $\vec{\mathbf{I}}$:
+\begin{equation}\label{eq:muNuclearSpin}
+\vec{\mu} = \gamma\vec{\mathbf{I}},
+\end{equation}  
+where the proportionality constant $\gamma$, known as gyro-magnetic ratio, depends on the atomic nucleus.\\
+
+To get the magnitude of $\vec{\mu}$ we use:
+\begin{equation}
+\abs{\vec{\mu}} = \gamma\hbar\sqrt{I(I+1)},
+\end{equation}
+
+where $I$ is the nuclear spin quantum number with values $I=0,\frac{1}{2},1,\frac{3}{2},...$. With the help of \ref{eq:nuclearSpin} we can derive:
+\begin{itemize}
+\item nuclei with odd A have half-integer $I$, e.g.: \isotope[1]{H}, \isotope[13]{C}.
+\item nuclei with even A and charge have $I=0$, e.g.: \isotope[12]{c}, \isotope[16]O.
+\item nuclei with even A and odd charge have integer $I$, e.g.: \isotope[2]{H}, \isotope[6]{Li}, \isotope[14]N.
+\end{itemize}
+
+Hydrogen (\isotope[1]H) has a relatively high gyro-magnetic ratio and is also one of the most abundant nuclei with non-zero spin in human tissue, which makes it perfect for MRI acquisitions.\\
+
+\subsection{Zeeman Effect}\label{subs:zeemanEffect}
+
+This magnetic moment points at a random direction in absence of a magnetic field, thus free spin sistems have a spherical distribution of spin orientations due to the Boltzmann equation for thermal energy. In the presence of a magnetic field $\vec{B_0}$, we can obtain the energy:
+\begin{equation}\label{eq:hamiltonianMu}
+\mathcal{H} = -\vec{\mu}\cdot \vec{B_0}.
+\end{equation} 
+Without loss of generality we can assume that $\vec{B_0} = B_z \vec{e_z}$. Then, the hamiltonian can be reformulated using \autoref{eq:muNuclearSpin} to:
+\begin{equation}\label{eq:hamiltonianNuclearSpin}
+\mathcal{H} = - \gamma I_z B_0.
+\end{equation}
+Hence, the eigenstates of $\hat{\mathcal{H}}$ correspond to the eigenstates of $\hat{I_z}$, which in turn comprise of $2l + 1$ different values. Thus, we can denote the energy levels by:
+\begin{equation}
+E_m = -\gamma\hbar B_0 m,\quad -I\leq m \leq I,
+\end{equation}
+which resembles an angular momentum $\vec{mu}$ precessing with the angular frequency $\gamma B_0 = \omega_L$, known as the \textit{Larmor} frequency. \cite{Larmor}
+
+The resulting splitting of a single non-excited energy level into several new excited levels in the presence of an external magnetic field is called Zeeman effect depicted in \autoref{fig:zeemanEffect}. With the energy difference between energy levels:
+\begin{equation}\label{eq:energyDifference}
+\Delta E = \abs{E_{m+1} - E_m} = \hbar \gamma B_0=\hbar \omega_L.
+\end{equation}
+
+\begin{figure}[h]
+
+\begin{tikzpicture}
+
+    % Draw the B_0 = 0 text
+    \node at (-5, 0) {$\vec{B}_0 = 0$};
+
+    % Draw the B_0 > 0 text
+    \node at ( 6, 0) {$\vec{B}_0 > 0$};
+
+    % Draw the initial line
+    \draw[-] (-3, 0) -- (-1, 0);
+
+    % Draw the split lines
+    \draw[dashed] (-1, 0) -- (1, 1);
+    \draw[dashed] (-1, 0) -- (1, -1);
+
+    % Draw the energy level lines
+    \draw[-] (1, 1) -- (2, 1);
+    \draw[-] (1, -1) -- (2, -1);
+
+    % Draw the energy level labels
+    \node at (3.5, 1) {$m = -1/2$};
+    \node at (3.5, -1) {$m = 1/2$};
+
+    % Draw the arrow and label for energy difference
+    \draw[<->] (1.5, 0.9) -- (1.5, -0.9);
+    \node at (2.2, 0) {$\hbar \omega_L$};
+\end{tikzpicture}
+\label{fig:zeemanEffect}
+\caption{Zeeman effect on an energy level for a nucleus with nuclear spin I = 1/2. The energy difference between the levels is half the Larmor frequency $\omega_L$ multiplied by $\hbar$.}
+\end{figure}
+
+A spin system may have multiple resonant frequencies when presented with field inhomogeneities, shielding from neighboring spins, etc. This is called \textit{chemical shift} which is described by a shielding constant $\delta$:
+\begin{equation}\label{eq:chemicalShift}
+\begin{split}
+B_{0}^{eff} &= B_0 (1-\delta) \\
+\omega &= \omega_0 - \Delta\omega = \omega_0 (1-\delta) 
+\end{split}
+\end{equation} 
+
+As an example, the hydrogen nuclei in a fat molecule $\isotope{CH}_2$ have a shielding constant of $\delta = \SI{3.35}{ppm}$ with respect to a proton in water.\\
+
+The gyro-magnetic ratio of the proton (\isotope[1]{H}) is $\gamma =$ $\SI{1.6752219e+8}{\per \second\per \tesla}$, which corresponds to a frequency of $f = \frac{\omega_L}{2\pi}=\SI{127.732}{\mega\hertz}$ for $B_0 = \SI{3}{\tesla}$
+
+\subsection{Bulk Magnetization}
+The magnetic moments of N atomic nuclei sum up to a net bulk magnetization that describes the behaviour of the system:
+\begin{equation}
+\vec{M} = \sum_{i=1}^N \vec{\mu_i}.
+\end{equation}
+Because in absence of an external magnetic field the nuclei in the human body are at thermal equilibrium, and the thermal energy is large compared to the energy of the non-excited spin state ($k_B T \gg \gamma \hbar B_0$) the occupation density of the spin states can be expressed using Boltzmann statistics. Hence, we can derive that the excess rate of spins pointing on a specific direction vs the spins pointing at the opposite direction can be described by the Boltzmann distribution:
+\begin{equation}\label{eq:excessSpins}
+\frac{N_\uparrow}{N_\downarrow} = \exp (\frac{\Delta E}{k_B T}). 
+\end{equation}
+where $k_B$ is the Boltzmann constant.\\
+
+Since $k_B T \gg \Delta E$ we can approximate to the first order \autoref{eq:excessSpins}. Thus denoting the excess spins $N_s$ we derive the bulk magnetization as:
+\begin{equation}\label{eq:bulkMagnetization}
+M_{z}^{0} = \norm{\mathbf{M}} \approx \frac{\gamma^2 h^2 B_0 N_s}{4 k_B T}
+\end{equation}
+At room temperature ($T = \SI{300}{\kelvin}$), the number of spins in the up-state is almost equal to the number of spins in the down-state. Nevertheless, the high abundance of hydrogen in the human body generates sufficient bulk magnetization for imaging purposes.\cite{aizada14}.
+
+\subsection{Resonance and RF Excitation}
+When nuclei are subjected to an RF pulse at the Larmor frequency ($\omega_0 = \gamma B_0$), they absorb energy and are excited to a higher energy state. The resonance condition is met when the frequency of the RF pulse matches the Larmor frequency. This causes the net magnetization vector to tip away from the $B_0$ axis, creating transverse magnetization.
+
+\subsection{Relaxation Mechanisms}
+After the RF pulse is turned off, the excited nuclei return to their equilibrium state through relaxation processes:
+\begin{itemize}
+    \item \textbf{T1 (Longitudinal) Relaxation:} The recovery of longitudinal magnetization along the $B_0$ axis.
+    \item \textbf{T2 (Transverse) Relaxation:} The decay of transverse magnetization due to spin-spin interactions.
+\end{itemize}
+
+\subsection{Chemical Shift}
+The chemical shift refers to the variation in resonance frequency of nuclei due to their chemical environment. This shift is crucial for distinguishing between water and fat signals in MRI, as the resonance frequency of fat protons is slightly lower than that of water protons.
+
+\section{MRI Hardware Components}
+The main components of an MRI system include:
+\begin{itemize}
+    \item \textbf{Static Magnetic Field:} Produced by a superconducting magnet, creating a strong and uniform field ($B_0$).
+    \item \textbf{RF Coils:} Used for both transmitting the RF pulse and receiving the MR signal.
+    \item \textbf{Gradient Coils:} Generate magnetic field gradients for spatial encoding.
+    \item \textbf{Signal Reception:} The precessing transverse magnetization induces a voltage in the RF coils, which is detected and processed to form images.
+\end{itemize}
+
+\section{Spatial Encoding}
+Spatial encoding in MRI is achieved through the application of magnetic field gradients, which cause the Larmor frequency to vary with position.
+
+\subsection{Slice Selection}
+A gradient field applied along one axis (e.g., the $z$-axis) during RF excitation selectively excites a slice of tissue. The RF pulse is designed to match the Larmor frequency of the nuclei in the desired slice.
+
+\subsection{Frequency Encoding}
+Following slice selection, a gradient applied along a second axis (e.g., the $x$-axis) causes the resonance frequency to vary linearly with position. This frequency variation is used to encode spatial information.
+
+\subsection{Phase Encoding}
+A third gradient applied along a perpendicular axis (e.g., the $y$-axis) introduces a position-dependent phase shift. By incrementally changing the phase-encoding gradient, spatial information along this axis is encoded.
+
+\subsection{k-Space and Image Reconstruction}
+The combination of frequency and phase encoding gradients fills k-space, a matrix representing spatial frequencies. The MR image is reconstructed from the k-space data using the inverse Fourier transform.
+
+\chapter{Water-Fat MRI}
+
+\section{Importance of Water-Fat Separation}
+Water-fat separation in MRI is essential for assessing metabolic disorders such as obesity, metabolic syndrome, and type-2 diabetes. The technique provides insights into body fat distribution and helps derive biomarkers like the Proton Density Fat Fraction (PDFF).
+
+\section{Chemical Shift Encoding (CSE)}
+Chemical shift encoding (CSE) leverages the resonance frequency differences between water and fat protons to separate their signals. Multi-echo acquisitions are used to encode these differences, enabling the separation of water and fat signals into distinct images.
+
+\section{Dixon Techniques}
+The Dixon method involves acquiring images at multiple echo times to exploit the phase differences between water and fat signals. This technique can be applied both qualitatively, to suppress fat signals, and quantitatively, to measure fat concentration.
+
+\section{Applications in Clinical Diagnostics}
+Water-fat MRI techniques are widely used in clinical diagnostics to evaluate liver fat content, muscle composition, and other metabolic parameters. The separation of water and fat signals enhances the accuracy of these assessments.
+
+\chapter{Challenges and Techniques for Acceleration}
+
+\section{Motion Artifacts}
+Motion artifacts arise from patient movement or physiological motion during MRI acquisition. These artifacts can degrade image quality and diagnostic accuracy.
+
+\section{Respiratory Triggering and Breath-Hold Techniques}
+Respiratory triggering and breath-hold techniques are employed to mitigate motion artifacts. While effective, these methods can increase patient discomfort and extend scan times.
+
+\section{Compressed Sensing (CS)}
+Compressed Sensing (CS) is a mathematical framework that accelerates MRI acquisition by reconstructing images from undersampled data.
+
+\subsection{Principles of Compressed Sensing}
+CS exploits the sparsity of MR images in a transform domain, enabling the reconstruction of high-quality images from fewer k-space samples.
+
+\subsection{CS in MRI}
+CS has been successfully applied to various MRI techniques, reducing scan times and improving image quality. The reconstruction process involves solving an optimization problem to recover the image from undersampled data.
+
+\subsection{CS in Water-Fat MRI}
+In water-fat MRI, CS can be used to accelerate the acquisition process by exploiting the redundancy in multi-echo data. This approach enhances the efficiency of water-fat separation and reduces scan times.
+
+\chapter{Advanced Techniques in Water-Fat MRI}
+
+\section{Field Mapping}
+Accurate field mapping is crucial for water-fat separation. Various algorithms have been developed to estimate the field map and correct for inhomogeneities.
+
+\section{IDEAL Method}
+The Iterative Decomposition of Water and Fat with Echo Asymmetry and Least-squares (IDEAL) method iteratively estimates water and fat signals, field map, and transverse relaxation rates.
+
+\section{Graph Cut Algorithms}
+Graph cut algorithms provide an efficient approach for field map estimation, improving the accuracy of water-fat separation by minimizing artifacts.
+
+\section{Conclusion}
+MRI, leveraging the NMR phenomenon, offers unparalleled capabilities in both anatomical and functional imaging. The ongoing development of advanced techniques like CS in WF-MRI continues to enhance the efficiency and effectiveness of this imaging modality, making it invaluable in the clinical assessment of metabolic and other disorders.
